@@ -14,21 +14,6 @@ __prompt_install_nvm(){
   fi
 }
 
-__prompt_install_meteor(){
-  _log info "Couldn't find meteor..."
-  read -p "Should I install it? " -n 1 -r
-  echo    # (optional) move to a new line
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    _log info "Installing, this will take awhile."
-    curl https://install.meteor.com/ | sh
-  else
-    log_error "Install meteor and try again"
-    _log warn "To install NVM visit https://www.meteor.com/install"
-    exit
-  fi
-}
-
-
 __npm_install_and_layout(){
   if [ ! -d ./node_modules ]; then
     # no node modules... run npm install
@@ -131,47 +116,4 @@ requires_nvm(){
   __nvm_use_or_install_version
   __direnv_nvm_use_node
   __npm_install_and_layout
-}
-
-__config_or_init_stencil(){
-  local STENCIL_CONFIG=$(find .stencil)
-  if [ -z "$STENCIL_CONFIG" ]; then
-    stencil init
-  else
-    _log success "Good to go, 'stencil start' for local development"
-  fi
-}
-
-requires_stencil(){
-  if has stencil; then
-    __config_or_init_stencil
-  else
-    _log warn "Installing stencil cli"
-    npm install -g @bigcommerce/stencil-cli
-  fi
-  
-}
-
-requires_themekit(){
-  if has theme; then
-    _log success "Found shopify themekit"
-  else
-    _log warn "Installing shopify themekit"
-    # mac only here, need to detect this instead
-    brew tap shopify/shopify
-    brew install themekit
-  fi
-}
-
-requires_meteor(){
-  if has meteor; then
-    if [ ! -d ./node_modules ]; then
-      # no node modules... run meteor npm install
-      _log warn "Running npm install"
-      meteor npm install
-    fi
-  else
-    __prompt_install_meteor
-  fi
-  _log success "Good to go, Meteor installed"
 }

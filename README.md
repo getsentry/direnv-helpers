@@ -1,21 +1,10 @@
-# Various helpers for direnv.net (NVM, BigCommerce, Shopify, Meteor)
-### Handy project setup helpers that can:
-
-- Detect & install NVM
-- Detect & install BigCommerce's stencil-cli
-- Detect & install Meteor
-- Detect & install Shopify's themekit
-- Node / NVM specific helpers
-  - Use the node version required by your project (if missing, install it with NVM)
-  - Run npm install if you are missing a `node_modules`
-  - Use direnv's `node_layout` to make any `./.bin` stubs available in your shell
-
+# direnv helpers
 
 ## Installation
 
 ```
 # download the script
-curl -o- https://raw.githubusercontent.com/steve-ross/direnv-helpers/helpers.sh >> ~/helpers.sh
+curl -o- https://raw.githubusercontent.com/getsentry/direnv-helpers/helpers.sh >> ~/helpers.sh
 
 # source it in your .direnvrc
 echo -n "source ~/helpers.sh" >> ~/.direnvrc
@@ -42,9 +31,11 @@ echo "requires_nvm" >> .envrc
 Direnv should prompt you to allow the script to run and voila!
 
 ## Helpers to use in your `.envrc`
+
 ```
 requires_nvm
-requires_stencil
-requires_themekit
-requires_meteor
 ```
+
+# Credits
+
+- nvm utilities: https://github.com/steve-ross/direnv-helpers
